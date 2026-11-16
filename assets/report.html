@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+  <title>$host · Web Rewind</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Geist, Inter, system-ui, sans-serif;
+      color: #f0f1f5;
+      background: #13151c;
+      --border: #353945;
+      --muted: #b1b5c2;
+      --then: #f8c87a;
+      --now: #a7d9fa;
+    }
+    * { box-sizing: border-box; }
+    body {
+      max-width: 1520px;
+      margin: 0 auto;
+      padding: clamp(20px, 4vw, 64px);
+    }
+    header { padding-block: 14px 32px; }
+    .brand, .caption, .card-label {
+      font: 500 0.8rem/1.5 "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+    }
+    .brand { margin: 0; color: var(--then); }
+    h1 {
+      margin: 0.16em 0;
+      font-size: clamp(2.25rem, 7vw, 6rem);
+      font-weight: 650;
+      letter-spacing: -0.045em;
+      line-height: 1.05;
+      overflow-wrap: anywhere;
+    }
+    .caption, footer { color: var(--muted); margin: 0; }
+    .notice { color: var(--then); margin-bottom: 0; }
+    .comparison {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(14px, 2vw, 28px);
+    }
+    .page {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #1d2029;
+      overflow: hidden;
+    }
+    .page-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      flex-wrap: wrap;
+      gap: 6px 18px;
+      min-height: 82px;
+      padding: 12px 18px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-head h2 { margin: 0; font-size: clamp(1.2rem, 2.55vw, 2rem); line-height: 1.1; }
+    .card-label { color: var(--then); margin: 0 0 4px; }
+    .live .card-label { color: var(--now); }
+    a { color: inherit; text-underline-offset: 0.24em; }
+    a:hover { color: #fff; }
+    a:focus-visible { outline: 2px solid var(--now); outline-offset: 4px; }
+    .page-head a { color: var(--muted); font-size: 0.86rem; }
+    .page img { display: block; width: 100%; height: auto; }
+    .page-placeholder {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 8 / 3;
+      background: #171922;
+      color: var(--muted);
+    }
+    footer { margin-top: 24px; font-size: 0.82rem; }
+    @media (max-width: 680px) {
+      .comparison { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="brand">Web Rewind</p>
+    <h1>$host</h1>
+    <p class="caption">Requested $request_period · Looked up $anchor_date UTC</p>
+$period_alert
+  </header>
+  <main class="comparison" aria-label="Website comparison">
+    <section class="page">
+      <div class="page-head">
+        <div>
+          <p class="card-label">Then</p>
+          <h2><time datetime="$capture_date">$capture_date</time></h2>
+        </div>
+        <a href="$before_url" rel="noreferrer" target="_blank">Wayback capture ↗</a>
+      </div>
+      $before_preview
+    </section>
+    <section class="page live">
+      <div class="page-head">
+        <div>
+          <p class="card-label">Now</p>
+          <h2>$current_heading</h2>
+        </div>
+        <a href="$after_url" rel="noreferrer" target="_blank">Current site ↗</a>
+      </div>
+      $after_preview
+    </section>
+  </main>
+  <footer>Historical capture by the <a href="https://web.archive.org/" rel="noreferrer" target="_blank">Internet Archive</a>. Capture date shown in UTC.</footer>
+</body>
+</html>
